@@ -1,1 +1,1 @@
-x = "This file is a test";
+x = 'This file is a test'

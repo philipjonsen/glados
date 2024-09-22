@@ -9,14 +9,14 @@ instance.
 First, set the environment variables:
 
 - `GLADOS_POSTGRES_DATA_DIR` to the directory
-where Postgres should store its data on the host machine.
+  where Postgres should store its data on the host machine.
 
 - `GLADOS_POSTGRES_PASSWORD` to the password for accessing the DB.
 
 - `GLADOS_PROVIDER_URL` to the execution API provider URL.
 
 - `GLADOS_PORTAL_CLIENT` to the Portal client to be used for Portal network
-access. Currently supported values are `trin` and `fluffy`.
+  access. Currently supported values are `trin` and `fluffy`.
 
 Then, from the root of this repo, run:
 
@@ -32,4 +32,3 @@ the Glados web dashboard populating with data.
 ### Tearing Down
 
 `docker compose down` will remove the deployment.
-

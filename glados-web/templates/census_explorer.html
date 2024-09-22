@@ -1,31 +1,25 @@
-{% extends "base.html" %}
-
-{% block title %}Glados{% endblock %}
-
-{% block head %}
+{% extends "base.html" %} {% block title %}Glados{% endblock %} {% block head %}
 <script src="/static/js/d3.min.js"></script>
 <script src="/static/js/censustimeseries.js"></script>
 <script src="/static/js/trace/enr.js"></script>
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block content %}
 <div class="container">
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 margin-bottom">
-            <div id="census-timeseries-graph"> </div>
-        </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 margin-bottom">
+      <div id="census-timeseries-graph"></div>
     </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+  </div>
 </div>
 
 <script>
-    censusTimeSeriesChart(0)
+  censusTimeSeriesChart(0);
 </script>
 
 {% endblock %}

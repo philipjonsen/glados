@@ -1,99 +1,99 @@
 #trace {
-    border-top: thin solid black;
+  border-top: thin solid black;
 }
 
 #graph {
-    border-radius: 10px;
-    background-color: #FFFFFC;
-    overflow: hidden;
-    z-index: 1000;
-    margin: 0px;
-    padding: 0px;
+  border-radius: 10px;
+  background-color: #fffffc;
+  overflow: hidden;
+  z-index: 1000;
+  margin: 0px;
+  padding: 0px;
 }
 
 #node-table {
-    padding: 0px;
-    margin: 0px;
-    border-left: 1px solid black;
-    position: relative;
-    height: 100%;
-    overflow: auto;
-    display: block;
+  padding: 0px;
+  margin: 0px;
+  border-left: 1px solid black;
+  position: relative;
+  height: 100%;
+  overflow: auto;
+  display: block;
 }
 
 #node-table-inner {
-    margin: 0px;
+  margin: 0px;
 }
 
 .w-33 {
-    width: 33% !important
+  width: 33% !important;
 }
 
 .w-66 {
-    width: 66% !important
+  width: 66% !important;
 }
 
 #legend {
-    border: 1px solid black;
-    border-bottom-right-radius: 3px;
-    float: left;
-    border-top: none;
-    border-left: none;
-    display: flex;
-    padding-right: 3px;
-    padding-left: 10px;
-    position: relative;
-    user-select: none;
+  border: 1px solid black;
+  border-bottom-right-radius: 3px;
+  float: left;
+  border-top: none;
+  border-left: none;
+  display: flex;
+  padding-right: 3px;
+  padding-left: 10px;
+  position: relative;
+  user-select: none;
 }
 
 #trin-button {
-    border: 1px solid black;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    display: flex;
-    float: left;
+  border: 1px solid black;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  display: flex;
+  float: left;
 
-    margin-left: 10px;
-    border-top: none;
-    padding-left: 3px;
-    padding-right: 3px;
-    user-select: none;
+  margin-left: 10px;
+  border-top: none;
+  padding-left: 3px;
+  padding-right: 3px;
+  user-select: none;
 }
 
 #legend text {
-    color: gray;
+  color: gray;
 }
 
 .legend-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 5;
-    border: 0.5px solid white;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    margin-top: 6px;
-    margin-left: 6px;
-    margin-right: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5;
+  border: 0.5px solid white;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  margin-top: 6px;
+  margin-left: 6px;
+  margin-right: 3px;
 }
 
 #origin {
-    background: #F08E3A;
+  background: #f08e3a;
 }
 
 #responded {
-    background: #507AA5;
+  background: #507aa5;
 }
 
 #no-response {
-    background: #BAB0AC;
+  background: #bab0ac;
 }
 
 #found-content {
-    background: #5CA053;
+  background: #5ca053;
 }
 
 #no-progress {
-    background: #956955;
+  background: #956955;
 }
 
 #cancelled {
@@ -101,24 +101,24 @@
 }
 
 .should-store-legend-dot {
-    background: white;
-    width: 12px;
-    height: 12px;
-    border-radius: 5;
-    border: 3px solid lightgray;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    margin-top: 5px;
-    margin-left: 6px;
-    margin-right: 3px;
+  background: white;
+  width: 12px;
+  height: 12px;
+  border-radius: 5;
+  border: 3px solid lightgray;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  margin-top: 5px;
+  margin-left: 6px;
+  margin-right: 3px;
 }
 
 .previous {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 #no-trace {
-    left: 10vw;
-    top: 50vh;
-    position: absolute;
+  left: 10vw;
+  top: 50vh;
+  position: absolute;
 }

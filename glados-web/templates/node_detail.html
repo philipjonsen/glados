@@ -1,192 +1,193 @@
-{% extends "base.html" %}
-
-{% block title %}Node Detail{% endblock %}
-{% block head %}
-{% call super() %}
+{% extends "base.html" %} {% block title %}Node Detail{% endblock %} {% block
+head %} {% call super() %}
 <script src="/static/js/trace/enr.js"></script>
-{% endblock %}
-{% block content %}
+{% endblock %} {% block content %}
 
 <ul>
-    <div class="row">
-        <div class="col">
-            <h1>Node Details: {{ node.node_id_as_hex() }}</h1>
-        </div>
+  <div class="row">
+    <div class="col">
+      <h1>Node Details: {{ node.node_id_as_hex() }}</h1>
     </div>
-    <br />
-    {% if node.get_nickname().is_some() %}
-    <div class="row">
-        <div class="col">
-            <div class="card shadow-sm enr-card">
-                <div class="card-body">
-                    <h2>{{ node.get_nickname().unwrap() }}</h2>
-                    <p><a
-                            href="https://trin-bench.ethdevops.io/d/e23mBdEVkb/trin-metrics?orgId=1&var-protocol=All&var-node={{ node.get_nickname().unwrap() }}">
-                            Trin Metrics</a></p>
+  </div>
+  <br />
+  {% if node.get_nickname().is_some() %}
+  <div class="row">
+    <div class="col">
+      <div class="card shadow-sm enr-card">
+        <div class="card-body">
+          <h2>{{ node.get_nickname().unwrap() }}</h2>
+          <p>
+            <a
+              href="https://trin-bench.ethdevops.io/d/e23mBdEVkb/trin-metrics?orgId=1&var-protocol=All&var-node={{ node.get_nickname().unwrap() }}"
+            >
+              Trin Metrics</a
+            >
+          </p>
 
-                    <p><a
-                            href="https://trin-bench.ethdevops.io/d/rYdddlPWk/node-exporter-full?orgId=1&refresh=1m&var-DS_PROMETHEUS=default&var-job=node&var-node={{ node.get_nickname().unwrap() }}">
-                            Node Metrics</a></p>
-                </div>
-            </div>
+          <p>
+            <a
+              href="https://trin-bench.ethdevops.io/d/rYdddlPWk/node-exporter-full?orgId=1&refresh=1m&var-DS_PROMETHEUS=default&var-job=node&var-node={{ node.get_nickname().unwrap() }}"
+            >
+              Node Metrics</a
+            >
+          </p>
         </div>
+      </div>
     </div>
-    <br />
-    {% endif %}
-    <div class="row">
-        <div class="col">
-            {% match latest_enr %}
-            {% when Some with (enr) %}
-            <div class="card shadow-sm enr-card">
-                <div class="card-body">
-                    <h2>Latest ENR</h2>
-                    <ul>
-                        <li>Sequence Number: {{ enr.sequence_number }}</li>
-                    </ul>
-                    <pre>{{ enr.raw }}</pre>
-                    <div id="enr-data-box" class="form-group"></div>
-                </div>
-            </div>
-            {% match latest_enr_key_value_list %}
-            {% when Some with (key_value_list) %}
-            {% when None %}
-            <p>This shouldn't happen</p>
-            {% endmatch %}
-            {% when None %}
-            <p>No latest ENR found</p>
-            {% endmatch %}
+  </div>
+  <br />
+  {% endif %}
+  <div class="row">
+    <div class="col">
+      {% match latest_enr %} {% when Some with (enr) %}
+      <div class="card shadow-sm enr-card">
+        <div class="card-body">
+          <h2>Latest ENR</h2>
+          <ul>
+            <li>Sequence Number: {{ enr.sequence_number }}</li>
+          </ul>
+          <pre>{{ enr.raw }}</pre>
+          <div id="enr-data-box" class="form-group"></div>
         </div>
+      </div>
+      {% match latest_enr_key_value_list %} {% when Some with (key_value_list)
+      %} {% when None %}
+      <p>This shouldn't happen</p>
+      {% endmatch %} {% when None %}
+      <p>No latest ENR found</p>
+      {% endmatch %}
     </div>
-    <br />
-    <div class="row">
-        <div class="col">
-            <div class="card shadow-sm enr-card">
-                <div class="card-body">
-                    <h2> ENR List</h2>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Sequence Number</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for record in enr_list %}
-                            <tr>
-                                <td>
-                                    <a
-                                        href="/network/node/{{ node.node_id_as_hex() }}/enr/{{ record.sequence_number }}/">{{
-                                        record.sequence_number }}</a>
-                                </td>
-                            </tr>
-                            {% else %}
-                            <tr>
-                                <td>No known ENRs</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col">
+      <div class="card shadow-sm enr-card">
+        <div class="card-body">
+          <h2>ENR List</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Sequence Number</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for record in enr_list %}
+              <tr>
+                <td>
+                  <a
+                    href="/network/node/{{ node.node_id_as_hex() }}/enr/{{ record.sequence_number }}/"
+                    >{{ record.sequence_number }}</a
+                  >
+                </td>
+              </tr>
+              {% else %}
+              <tr>
+                <td>No known ENRs</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
-    <br />
-    <div class="row">
-        <div class="col">
-            <div class="card shadow-sm enr-card">
-                <div class="card-body">
-                    <h2>Closest Nodes</h2>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Node ID</th>
-                                <th scope="col">Distance</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for neighbor_node in closest_node_list %}
-                            <tr>
-                                <td>
-                                    <a href="/network/node/{{ neighbor_node.node_id_as_hex() }}/">{{
-                                        neighbor_node.node_id_as_hex() }}</a>
-                                </td>
-                            </tr>
-                            {% else %}
-                            <tr>
-                                <td>No closest nodes</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col">
+      <div class="card shadow-sm enr-card">
+        <div class="card-body">
+          <h2>Closest Nodes</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Node ID</th>
+                <th scope="col">Distance</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for neighbor_node in closest_node_list %}
+              <tr>
+                <td>
+                  <a href="/network/node/{{ neighbor_node.node_id_as_hex() }}/"
+                    >{{ neighbor_node.node_id_as_hex() }}</a
+                  >
+                </td>
+              </tr>
+              {% else %}
+              <tr>
+                <td>No closest nodes</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
+  </div>
 </ul>
-
 
 <script>
 
-    function* hexFormatValues(buffer) {
-        for (let x of buffer) {
-            const hex = x.toString(16)
-            yield hex.padStart(2, '0')
-        }
-    }
+  function* hexFormatValues(buffer) {
+      for (let x of buffer) {
+          const hex = x.toString(16)
+          yield hex.padStart(2, '0')
+      }
+  }
 
-    const hexByByte = new Array(256)
+  const hexByByte = new Array(256)
 
-    function toHexString(bytes) {
-        let hex = "0x"
-        for (let byte of hexFormatValues(bytes)) {
-            if (!hexByByte[byte]) {
-                hexByByte[byte] = byte < 16 ? "0" + byte.toString(16) : byte.toString(16)
-            }
-            hex += hexByByte[byte]
-        }
-        return hex
-    }
+  function toHexString(bytes) {
+      let hex = "0x"
+      for (let byte of hexFormatValues(bytes)) {
+          if (!hexByByte[byte]) {
+              hexByByte[byte] = byte < 16 ? "0" + byte.toString(16) : byte.toString(16)
+          }
+          hex += hexByByte[byte]
+      }
+      return hex
+  }
 
-    function getDisplayValue(enr, key, value) {
-        if (key === "id") {
-            return value.toString()
-        } else if (key === "secp256k1") {
-            return toHexString(value)
-        } else if (["ip", "tcp", "udp", "ip6", "tcp6", "udp6"].includes(key)) {
-            const field = enr[key]
-            if (!field) {
-                throw new Error("Field not found.")
-            }
-            return field
-        } else {
-            // default to assuming binary data
-            return toHexString(value)
-        }
-    }
+  function getDisplayValue(enr, key, value) {
+      if (key === "id") {
+          return value.toString()
+      } else if (key === "secp256k1") {
+          return toHexString(value)
+      } else if (["ip", "tcp", "udp", "ip6", "tcp6", "udp6"].includes(key)) {
+          const field = enr[key]
+          if (!field) {
+              throw new Error("Field not found.")
+          }
+          return field
+      } else {
+          // default to assuming binary data
+          return toHexString(value)
+      }
+  }
 
 
 
-    function decodedEnrData(key, displayValue) {
-        let container = document.getElementById("enr-data-box");
-        let div = document.createElement("div");
-        div.className = "input-group mb-3";
-        div.innerHTML = `
-        <span class="input-group-text">${key}</span>
-        <input type="text" class="form-control" value="${displayValue}">
-    `;
+  function decodedEnrData(key, displayValue) {
+      let container = document.getElementById("enr-data-box");
+      let div = document.createElement("div");
+      div.className = "input-group mb-3";
+      div.innerHTML = `
+      <span class="input-group-text">${key}</span>
+      <input type="text" class="form-control" value="${displayValue}">
+  `;
 
-        container.appendChild(div);
-    }
+      container.appendChild(div);
+  }
 
-    {% match latest_enr %}
-    {% when Some with (enr) %}
-    let { enr: decodedEnr, seq, signature } = ENR.ENR.decodeTxt("{{ enr.raw }}");
-    decodedEnrData("signature", getDisplayValue(decodedEnr, "signature", signature));
-    decodedEnrData("seq", seq);
-    for (let [key, value] of decodedEnr.entries()) {
-        decodedEnrData(key, getDisplayValue(decodedEnr, key, value));
-    }
-    {% when None %}
-    {% endmatch %}
-
+  {% match latest_enr %}
+  {% when Some with (enr) %}
+  let { enr: decodedEnr, seq, signature } = ENR.ENR.decodeTxt("{{ enr.raw }}");
+  decodedEnrData("signature", getDisplayValue(decodedEnr, "signature", signature));
+  decodedEnrData("seq", seq);
+  for (let [key, value] of decodedEnr.entries()) {
+      decodedEnrData(key, getDisplayValue(decodedEnr, key, value));
+  }
+  {% when None %}
+  {% endmatch %}
 </script>
 {% endblock %}

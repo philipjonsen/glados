@@ -1,94 +1,114 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}{{ title }}{% endblock %}</title>
     <script src="/static/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/css/trace.css">
-    <link href="/static/css/glados_styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/css/trace.css" />
+    <link href="/static/css/glados_styles.css" rel="stylesheet" />
     {% block head %}{% endblock %}
-</head>
-{% block body %}
+  </head>
+  {% block body %}
 
-<body>
-
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffffff;">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" style="margin-left: 20px;" href="/">Glados</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" style="margin-left: 20px;" href="/audits/">Audit Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" style="margin-left: 20px;" href="/census/explorer">Census Explorer</a>
-                    </li>
-                </ul>
-                <select name="network-selector" id="network-selector" class="form-select" style="width: auto;">
-                    <option value="history">History</option>
-                    <option value="state">State</option>
-                    <option value="beacon">Beacon</option>
-                </select>
-            </div>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg navbar-light"
+      style="background-color: #ffffff"
+    >
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link active" style="margin-left: 20px" href="/"
+                >Glados</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                style="margin-left: 20px"
+                href="/audits/"
+                >Audit Dashboard</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                style="margin-left: 20px"
+                href="/census/explorer"
+                >Census Explorer</a
+              >
+            </li>
+          </ul>
+          <select
+            name="network-selector"
+            id="network-selector"
+            class="form-select"
+            style="width: auto"
+          >
+            <option value="history">History</option>
+            <option value="state">State</option>
+            <option value="beacon">Beacon</option>
+          </select>
         </div>
+      </div>
     </nav>
-    <hr style="margin-top: 0;">
+    <hr style="margin-top: 0" />
     <script>
-        // Logic for managing syncing network selector & URL parameter
-        document.addEventListener('DOMContentLoaded', function() {
-            const networkSelector = document.getElementById('network-selector');
-            
-            function syncSelectorWithUrl() {
-                const urlParams = new URLSearchParams(window.location.search);
-                const networkParam = urlParams.get('network');
-                if (networkParam && networkSelector.querySelector(`option[value="${networkParam}"]`)) {
-                    networkSelector.value = networkParam;
-                }
-            }
+      // Logic for managing syncing network selector & URL parameter
+      document.addEventListener("DOMContentLoaded", function () {
+        const networkSelector = document.getElementById("network-selector");
 
-            function loadNewUrl() {
-                const selectedValue = networkSelector.value;
-                const url = new URL(window.location);
-                url.searchParams.set('network', selectedValue);
-                window.location.href = url.toString();
-            }
+        function syncSelectorWithUrl() {
+          const urlParams = new URLSearchParams(window.location.search);
+          const networkParam = urlParams.get("network");
+          if (
+            networkParam &&
+            networkSelector.querySelector(`option[value="${networkParam}"]`)
+          ) {
+            networkSelector.value = networkParam;
+          }
+        }
 
-            function appendNetworkToUrl(url) {
-                const networkValue = networkSelector.value;
-                const urlObj = new URL(url, window.location.origin);
-                urlObj.searchParams.set('network', networkValue);
-                return urlObj.toString();
-            }
+        function loadNewUrl() {
+          const selectedValue = networkSelector.value;
+          const url = new URL(window.location);
+          url.searchParams.set("network", selectedValue);
+          window.location.href = url.toString();
+        }
 
-            // Set initial value based on URL parameter.
-            syncSelectorWithUrl();
+        function appendNetworkToUrl(url) {
+          const networkValue = networkSelector.value;
+          const urlObj = new URL(url, window.location.origin);
+          urlObj.searchParams.set("network", networkValue);
+          return urlObj.toString();
+        }
 
-            // Load new URL when selector changes.
-            networkSelector.addEventListener('change', loadNewUrl);
+        // Set initial value based on URL parameter.
+        syncSelectorWithUrl();
 
-            // Update link clicks to include network selector parameter.
-            document.body.addEventListener('click', function(e) {
-                const target = e.target.closest('a');
-                if (target && target.href && target.host === window.location.host) {
-                    e.preventDefault();
-                    window.location.href = appendNetworkToUrl(target.href);
-                }
-            });
+        // Load new URL when selector changes.
+        networkSelector.addEventListener("change", loadNewUrl);
+
+        // Update link clicks to include network selector parameter.
+        document.body.addEventListener("click", function (e) {
+          const target = e.target.closest("a");
+          if (target && target.href && target.host === window.location.host) {
+            e.preventDefault();
+            window.location.href = appendNetworkToUrl(target.href);
+          }
         });
+      });
     </script>
 
     <div id="content">
-        <div id="container">
-            {% block content %}{% endblock %}
-        </div>
+      <div id="container">{% block content %}{% endblock %}</div>
     </div>
-</body>
-{% endblock %}
-
+  </body>
+  {% endblock %}
 </html>
