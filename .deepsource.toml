@@ -1,0 +1,44 @@
+version = 1
+
+[[analyzers]]
+name = "cfn-lint"
+type = "community"
+
+[[analyzers]]
+name = "javascript"
+
+  [analyzers.meta]
+  plugins = [
+    "react",
+    "angular",
+    "vue",
+    "ember",
+    "angularjs",
+    "meteor"
+  ]
+  environment = [
+    "nodejs",
+    "jquery",
+    "mongo",
+    "browser",
+    "jest",
+    "cypress",
+    "mocha",
+    "vitest",
+    "jasmine"
+  ]
+
+[[analyzers]]
+name = "rust"
+
+  [analyzers.meta]
+  msrv = "stable"
+
+[[transformers]]
+name = "rustfmt"
+
+[[transformers]]
+name = "prettier"
+
+[[transformers]]
+name = "standardjs"
